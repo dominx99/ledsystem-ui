@@ -55,7 +55,8 @@ export default {
   */
 
   axios: {
-    proxy: true
+    proxy: true,
+    baseURL: process.env.BASE_URL,
   },
   proxy: {
     '/v1/': {
