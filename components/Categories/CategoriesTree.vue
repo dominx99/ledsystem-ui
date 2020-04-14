@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="loading">
+    <v-card v-if="loading">
       <v-skeleton-loader
         transition="scale-transition"
         type="card-heading"
@@ -11,7 +11,7 @@
         transition="scale-transition"
         type="list-item-avatar"
       ></v-skeleton-loader>
-    </div>
+    </v-card>
     <v-card
       v-else-if="categories.length > 0"
       class="mx-auto"

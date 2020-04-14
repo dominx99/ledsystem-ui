@@ -5,10 +5,10 @@
       <MainBreadcrumb class="mt-0" />
 
       <v-row>
-        <v-col :md="4">
+        <v-col md="4" cols="12">
           <CategoriesTree />
         </v-col>
-        <v-col :md="8">
+        <v-col md="8" cols="12">
           <Products />
         </v-col>
       </v-row>
