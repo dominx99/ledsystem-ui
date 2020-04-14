@@ -1,8 +1,8 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <MainCarousel v-if="false" />
-      <MainBreadcrumb class="mt-0" />
+      <MainCarousel />
+      <MainBreadcrumb class="mt-3" />
 
       <v-row>
         <v-col md="4" cols="12">
