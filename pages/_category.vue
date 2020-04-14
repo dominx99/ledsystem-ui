@@ -1,8 +1,7 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <MainCarousel />
-      <MainBreadcrumb class="mt-3" />
+      <MainBreadcrumb />
 
       <v-layout row>
         <v-col md="4" cols="12">
@@ -19,14 +18,12 @@
 <script>
 import Products from './../components/Products/Products'
 import CategoriesTree from './../components/Categories/CategoriesTree'
-import MainCarousel from './../components/Carousels/MainCarousel'
 import MainBreadcrumb from './../components/Breadcrumbs/MainBreadcrumb'
 
 export default {
   components: {
     Products,
     CategoriesTree,
-    MainCarousel,
     MainBreadcrumb,
   },
   mounted() {
