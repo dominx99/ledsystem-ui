@@ -55,13 +55,7 @@ export default {
   */
 
   axios: {
-    proxy: true,
     baseURL: process.env.BASE_URL,
-  },
-  proxy: {
-    '/v1/': {
-      target: 'http://localhost',
-    }
   },
 
   /*
@@ -108,6 +102,7 @@ export default {
     }
   },
   env: {
-    baseUrl: process.env.BASE_URL
+    baseUrl: process.env.BASE_URL,
+    nodeEnv: process.env.NODE_ENV,
   }
 }
