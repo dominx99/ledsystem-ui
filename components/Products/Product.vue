@@ -4,7 +4,7 @@
     class="text-center product"
   >
     <v-img
-      src="https://images.obi.pl/product/PL/1500x1500/603449_1.jpg"
+      :src="imageUrl()"
       height="150"
       contain
     ></v-img>
@@ -40,6 +40,13 @@
       selection: 1,
     }),
     methods: {
+      imageUrl() {
+        if (! this.product.images[0]) {
+          return 'https://images.obi.pl/product/PL/1500x1500/603449_1.jpg'
+        }
+
+        return process.env.baseUrl + '/storage/' + this.product.images[0].path
+      },
       addToCart () {
         this.loading = true
 
