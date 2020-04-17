@@ -3,7 +3,7 @@
     <v-card class="mb-5 elevation-1">
       <v-container fluid>
         <v-row>
-          <v-col md="6">
+          <v-col cols="12" md="6">
             <v-skeleton-loader
               v-if="loading"
               transition="scale-transition"
@@ -32,7 +32,7 @@
             </div>
 
           </v-col>
-          <v-col md="6">
+          <v-col cols="12" md="6">
             <v-skeleton-loader
               v-if="loading"
               transition="scale-transition"

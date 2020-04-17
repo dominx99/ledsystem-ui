@@ -11,7 +11,7 @@
           <v-spacer></v-spacer>
 
           <v-toolbar-title
-            class="headline text-uppercase"
+            class="headline text-uppercase navbar-title"
             style="letter-spacing: 5px !important"
           >
             Ledsystem
@@ -46,3 +46,14 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  @media (min-width: map-get($grid-breakpoints, 'md')) {
+    .navbar-title {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+</style>
