@@ -45,7 +45,7 @@
           return 'https://images.obi.pl/product/PL/1500x1500/603449_1.jpg'
         }
 
-        return process.env.baseUrl + '/storage/' + this.product.images[0].path
+        return process.env.baseUrl + '/storage/' + this.product.images[0].thumbnail.path
       },
       addToCart () {
         this.loading = true

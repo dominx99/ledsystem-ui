@@ -37,8 +37,8 @@
             v-for="item in items"
             :key="item.product.id"
           >
-            <v-list-item-avatar>
-              <v-img :src="item.product.image_url"></v-img>
+            <v-list-item-avatar tile height="50" width="50">
+              <v-img :src="imageUrl(item)"></v-img>
             </v-list-item-avatar>
 
             <v-list-item-content>
@@ -109,6 +109,9 @@
       ...mapGetters({
         sum: 'cart/sum'
       }),
+      imageUrl(item) {
+        return process.env.baseUrl + '/storage/' + item.product.images[0].micro.path
+      },
       clear() {
         this.$store.dispatch('cart/clear')
       },
