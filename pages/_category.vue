@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <MainBreadcrumb />
+      <MainBreadcrumb v-if="false" />
 
       <v-layout row>
         <v-col md="4" cols="12">

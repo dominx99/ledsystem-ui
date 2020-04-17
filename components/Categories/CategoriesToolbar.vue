@@ -24,7 +24,7 @@
               dark
               rounded
               outlined
-              :to="category.slug"
+              @click="moveToCategory(category)"
             >
               <v-icon v-text="category.icon" class="mr-1"></v-icon>
               <span v-text="category.name"></span>
@@ -46,5 +46,15 @@ export default {
       return this.$store.state.categories.loading.categories
     },
   },
+  mounted() {
+    if (this.$store.state.categories.categories.length <= 0) {
+      this.$store.dispatch('categories/fetch')
+    }
+  },
+  methods: {
+    moveToCategory(category) {
+      this.$router.push({ name: 'category', params: { category: category.slug } })
+    }
+  }
 }
 </script>

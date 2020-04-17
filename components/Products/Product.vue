@@ -1,45 +1,59 @@
 <template>
-  <v-card
-    :loading="loading"
-    class="text-center product"
+  <v-hover
+    v-slot:default="{ hover }"
+    open-delay="200"
   >
-    <v-img
-      :src="imageUrl()"
-      height="150"
-      contain
-    ></v-img>
+    <v-card
+      :loading="loading"
+      :elevation="hover ? 16 : 2"
+      class="text-center product"
+    >
+      <div class="cursor-pointer" @click="openProduct()">
+        <v-img
+          :src="imageUrl()"
+          height="150"
+          contain
+        ></v-img>
 
-    <v-card-title class="justify-center subtitle-1" v-text="product.name"></v-card-title>
+        <v-card-title class="justify-center subtitle-1" v-text="product.name"></v-card-title>
 
-    <v-card-text class="subtitle-1 font-weight-bold"><Money :value="product.unit.price" /></v-card-text>
+        <v-card-text class="subtitle-1 font-weight-bold"><Money :value="product.unit.price" /></v-card-text>
+      </div>
 
-    <v-card-actions class="pa-0">
-      <v-btn
-        color="primary lighten-2 pa-0"
-        @click="addToCart"
-        block
-        large
-        tile
-      >
-        Dodaj do koszyka
-      </v-btn>
-    </v-card-actions>
-  </v-card>
+      <v-card-actions class="pa-0">
+        <v-btn
+          color="primary lighten-2 pa-0"
+          @click="addToCart"
+          block
+          large
+          tile
+        >
+          Dodaj do koszyka
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-hover>
 </template>
 
 <script>
   import Money from './../Money/Money.vue'
 
   export default {
+    props: ['product'],
     components: {
       Money,
     },
-    props: ['product'],
     data: () => ({
       loading: false,
       selection: 1,
     }),
     methods: {
+      openProduct() {
+        this.$router.push({
+          name: 'produkt-product',
+          params: { product: this.product.slug },
+        })
+      },
       imageUrl() {
         if (! this.product.images[0]) {
           return 'https://images.obi.pl/product/PL/1500x1500/603449_1.jpg'

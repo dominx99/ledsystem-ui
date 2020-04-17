@@ -2,7 +2,7 @@
   <v-row>
     <v-col cols="12">
       <MainCarousel />
-      <MainBreadcrumb class="mt-3" />
+      <MainBreadcrumb class="mt-3" v-if="false" />
 
       <v-row>
         <v-col md="4" cols="12">

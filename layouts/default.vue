@@ -1,7 +1,7 @@
 <template>
   <v-app light :style="{background: $vuetify.theme.themes[theme].background}">
     <v-card
-      outlined
+      class="elevation-1"
     >
       <Navbar />
       <Search />

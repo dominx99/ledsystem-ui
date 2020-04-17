@@ -1,8 +1,11 @@
 export const state = () => ({
   products: [],
   loading: {
-    products: true
-  }
+    products: true,
+    product: true,
+  },
+  product: {},
+  activeImage: {},
 })
 
 export const actions = {
@@ -17,12 +20,34 @@ export const actions = {
       console.error("Failed to load products")
     }
   },
+  async findBySlug({ commit }, slug) {
+    try {
+      commit('setLoadingProduct')
+
+      const res = await this.$axios.get(`v1/products/by-slug?slug=${slug}`)
+
+      commit('setActiveImage', res.data.images[0])
+      commit('setProduct', res.data)
+    } catch (e) {
+      console.error("Failed to find product")
+    }
+  }
 }
 
 export const mutations = {
   setProducts(state, products) {
     state.products = products
     state.loading.products = false
+  },
+  setProduct(state, product) {
+    state.product = product
+    state.loading.product = false
+  },
+  setActiveImage(state, image) {
+    state.activeImage = image
+  },
+  setLoadingProduct(state) {
+    state.loading.product = true
   },
   setLoadingProducts(state) {
     state.loading.products = true
