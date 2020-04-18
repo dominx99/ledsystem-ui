@@ -41,10 +41,10 @@
   export default {
     computed: {
       categories() {
-        return this.$store.state.categories.activeCategories
+        return this.$store.state.categories.parentCategories
       },
       loading() {
-        return this.$store.state.categories.loading.activeCategories
+        return this.$store.state.categories.loading.parentCategories
       }
     },
     methods: {
