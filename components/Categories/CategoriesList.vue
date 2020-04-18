@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card v-if="loading">
+    <div v-if="loading">
       <v-skeleton-loader
         transition="scale-transition"
         type="card-heading"
@@ -11,14 +11,13 @@
         transition="scale-transition"
         type="list-item-avatar"
       ></v-skeleton-loader>
-    </v-card>
-    <v-card
+    </div>
+    <div
       v-else-if="categories.length > 0"
       class="mx-auto"
       tile
     >
       <v-list shaped>
-        <v-subheader>Kategorie</v-subheader>
         <v-list-item-group color="primary">
           <v-list-item
             v-for="(item, i) in categories"
@@ -34,7 +33,7 @@
           </v-list-item>
         </v-list-item-group>
       </v-list>
-    </v-card>
+    </div>
   </div>
 </template>
 

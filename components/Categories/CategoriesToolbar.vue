@@ -20,9 +20,8 @@
               v-for="(category, index) in categories"
               :key="index"
               class="mr-4 my-2 font-weight-bold"
-              color="primary lighten-2"
+              color="cyan darken-1"
               dark
-              rounded
               outlined
               @click="moveToCategory(category)"
             >
@@ -40,16 +39,11 @@
 export default {
   computed: {
     categories() {
-      return this.$store.state.categories.categories
+      return this.$store.state.categories.parentCategories
     },
     loading() {
-      return this.$store.state.categories.loading.categories
+      return this.$store.state.categories.loading.parentCategories
     },
-  },
-  mounted() {
-    if (this.$store.state.categories.categories.length <= 0) {
-      this.$store.dispatch('categories/fetch')
-    }
   },
   methods: {
     moveToCategory(category) {

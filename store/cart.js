@@ -16,7 +16,6 @@ export const actions = {
     commit('decrement', item)
   },
   async remove({ commit }, item) {
-    console.log(item)
     commit("remove", item)
   },
 }

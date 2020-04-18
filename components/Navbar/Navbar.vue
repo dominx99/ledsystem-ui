@@ -6,7 +6,10 @@
     >
       <v-container>
         <v-layout row align-center>
-          <v-app-bar-nav-icon class="hidden-md-and-up"></v-app-bar-nav-icon>
+          <v-app-bar-nav-icon
+            class="hidden-md-and-up"
+            @click="openDrawer()"
+          ></v-app-bar-nav-icon>
 
           <v-spacer></v-spacer>
 
@@ -20,6 +23,22 @@
           <v-spacer></v-spacer>
 
           <Cart />
+
+          <v-btn
+            @click="toggleTheme()"
+            class="hidden-sm-and-down"
+            icon
+          >
+            <v-icon>mdi-brightness-6</v-icon>
+          </v-btn>
+
+          <v-btn
+            icon
+            class="hidden-md-and-down"
+            to="/logowanie"
+          >
+            <v-icon>mdi-account</v-icon>
+          </v-btn>
 
           <v-btn @click="showSearch" icon>
             <v-icon>mdi-magnify</v-icon>
@@ -38,10 +57,16 @@ export default {
     Cart,
   },
   methods: {
+    toggleTheme() {
+      this.$vuetify.theme.dark = ! this.$vuetify.theme.dark
+    },
     showSearch() {
       this.$store.commit('navbar/updateSearchSwitch', true)
 
       document.querySelector("#search").focus()
+    },
+    openDrawer() {
+      this.$store.commit('navbar/updateDrawer', true)
     },
   }
 }

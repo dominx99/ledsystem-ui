@@ -27,10 +27,11 @@ export default {
     MainBreadcrumb,
   },
   mounted() {
-    if (this.$store.state.categories.categories.length <= 0) {
-      this.$store.dispatch('categories/fetch')
+    if (this.$store.state.categories.parentCategories.length <= 0) {
+      this.$store.dispatch('categories/fetchParent')
     }
     this.$store.dispatch('categories/fetchByParentSlug', this.$route.params.category)
+    this.$store.commit('products/clearProducts')
     this.$store.dispatch('products/fetchByCategorySlug', this.$route.params.category)
   }
 }

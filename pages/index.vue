@@ -30,10 +30,8 @@ export default {
     MainBreadcrumb,
   },
   async mounted() {
-    console.log("env", process.env)
-    console.log("base url", process.env.baseUrl)
-    await this.$store.dispatch('categories/fetch')
-    this.$store.commit('categories/setActiveCategories', this.$store.state.categories.categories)
+    await this.$store.dispatch('categories/fetchParent')
+    this.$store.commit('categories/setActiveCategories', this.$store.state.categories.parentCategories)
   },
 }
 </script>

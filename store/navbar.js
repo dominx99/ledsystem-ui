@@ -1,8 +1,8 @@
 export const state = () => ({
-  drawer: null,
+  drawer: false,
   switches: {
     search: false,
-  }
+  },
 })
 
 export const mutations = {

@@ -12,9 +12,10 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.9.7",
-    "@nuxtjs/vuetify": "^1.0.0",
     "@nuxtjs/dotenv": "^1.4.1",
-    "nuxt": "^2.0.0"
+    "@nuxtjs/vuetify": "^1.0.0",
+    "nuxt": "^2.0.0",
+    "vue-currency-input": "^1.18.1"
   },
   "devDependencies": {
     "@mdi/font": "^5.0.45",

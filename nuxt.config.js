@@ -39,7 +39,8 @@ export default {
   buildModules: [
     '@nuxt/typescript-build',
     '@nuxtjs/vuetify',
-    ['@nuxtjs/dotenv', { systemvars: true }]
+    ['@nuxtjs/dotenv', { systemvars: true }],
+    'vue-currency-input/nuxt',
   ],
   /*
   ** Nuxt.js modules
@@ -66,10 +67,10 @@ export default {
     customVariables: ['~/assets/variables.scss'],
     treeShake: true,
     theme: {
-      dark: false,
+      dark: true,
       themes: {
         dark: {
-          primary: colors.blue.darken2,
+          primary: colors.cyan.darken2,
           accent: colors.grey.darken3,
           secondary: colors.amber.darken3,
           info: colors.teal.lighten1,
@@ -77,6 +78,7 @@ export default {
           error: colors.deepOrange.accent4,
           success: colors.green.accent3,
           background: colors.grey.darken4,
+          drawer: colors.grey.darken3,
         },
         light: {
           primary: colors.blue.darken2,
