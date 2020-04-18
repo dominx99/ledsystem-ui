@@ -170,6 +170,9 @@
       ]
     }),
     mounted() {
+      if (this.$store.state.categories.parentCategories.length <= 0) {
+        this.$store.dispatch('categories/fetchParent')
+      }
       this.$store.dispatch('products/findBySlug', this.$route.params.product)
     },
     computed: {
