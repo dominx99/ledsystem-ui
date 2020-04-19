@@ -27,7 +27,7 @@
     </v-list>
     <v-list dense>
       <v-list-item
-        to="logowanie"
+        to="/logowanie"
         link
       >
         <v-list-item-action>

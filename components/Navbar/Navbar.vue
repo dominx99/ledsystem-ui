@@ -15,7 +15,8 @@
 
           <v-toolbar-title
             class="headline text-uppercase navbar-title"
-            style="letter-spacing: 5px !important"
+            style="letter-spacing: 5px !important; cursor: pointer"
+            @click="$router.push('/')"
           >
             Ledsystem
           </v-toolbar-title>

@@ -8,7 +8,11 @@
           <CategoriesTree />
         </v-col>
         <v-col md="8" cols="12">
-          <Products />
+          <Products v-if="products.length > 0 || loadingProducts" />
+          <v-alert
+            color="info darken-1 white--text"
+            v-else
+          >Żaden produkt nie został znaleziony w tej kategorii.</v-alert>
         </v-col>
       </v-layout>
     </v-col>
@@ -21,6 +25,14 @@ import CategoriesTree from './../components/Categories/CategoriesTree'
 import MainBreadcrumb from './../components/Breadcrumbs/MainBreadcrumb'
 
 export default {
+  computed: {
+    products() {
+      return this.$store.state.products.products
+    },
+    loadingProducts() {
+      return this.$store.state.products.loading.products
+    },
+  },
   components: {
     Products,
     CategoriesTree,

@@ -9,7 +9,11 @@
           <CategoriesTree />
         </v-col>
         <v-col md="8" cols="12">
-          <Products />
+          <Products v-if="products.length > 0 || loadingProducts" />
+          <v-alert
+            color="info darken-1 white--text"
+            v-else
+          >Brak topowych produktów.</v-alert>
         </v-col>
       </v-row>
     </v-col>
@@ -32,6 +36,15 @@ export default {
   async mounted() {
     await this.$store.dispatch('categories/fetchParent')
     this.$store.commit('categories/setActiveCategories', this.$store.state.categories.parentCategories)
+    this.$store.commit('products/removeLoading', 'products')
+  },
+  computed: {
+    products() {
+      return this.$store.state.products.products
+    },
+    loadingProducts() {
+      return this.$store.state.products.loading.products
+    },
   },
 }
 </script>

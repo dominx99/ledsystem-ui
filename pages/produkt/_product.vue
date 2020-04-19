@@ -101,7 +101,7 @@
       <v-tabs
         v-model="tab"
       >
-        <v-tab v-if="product.parameters.length > 0">Parametry</v-tab>
+        <v-tab v-if="product.parameters && product.parameters.length > 0">Parametry</v-tab>
       </v-tabs>
 
       <v-tabs-items v-model="tab">
