@@ -101,8 +101,7 @@
       <v-tabs
         v-model="tab"
       >
-        <v-tab>Parametry</v-tab>
-        <v-tab>Opis</v-tab>
+        <v-tab v-if="product.parameters.length > 0">Parametry</v-tab>
       </v-tabs>
 
       <v-tabs-items v-model="tab">
@@ -112,19 +111,19 @@
               <v-col
                 cols="12"
                 md="6"
-                v-for="(parameter, index) in parameters"
+                v-for="(parameter, index) in product.parameters"
                 :key="index"
               >
                 <v-row no-gutters>
                   <v-col cols="4">
-                    <p class="mb-0 grey--text text--darken-1" v-text="parameter.name"></p>
+                    <p class="mb-0 grey--text text--darken-1" v-text="parameter.name.name"></p>
                   </v-col>
                   <v-col cols="4">
                     <p
                       class="mb-0"
                       v-for="(value, i) in parameter.values"
                       :key="i"
-                      v-text="value"
+                      v-text="value.value"
                     ></p>
                   </v-col>
                 </v-row>
@@ -146,28 +145,6 @@
     data: () => ({
       quantity: 1,
       tab: 0,
-      parameters: [
-        {
-          name: "Barwa",
-          values: ["Ciepła", "Czerwona"],
-        },
-        {
-          name: "Moc",
-          values: ["15W"],
-        },
-        {
-          name: "Akcesoria",
-          values: ["Ładowarka"],
-        },
-        {
-          name: "Klasa ohcronności",
-          values: ["II"],
-        },
-        {
-          name: "Jasność",
-          values: ["1000 lm"],
-        },
-      ]
     }),
     mounted() {
       if (this.$store.state.categories.parentCategories.length <= 0) {
