@@ -40,7 +40,6 @@ export default {
     '@nuxt/typescript-build',
     '@nuxtjs/vuetify',
     ['@nuxtjs/dotenv', { systemvars: true }],
-    'vue-currency-input/nuxt',
   ],
   /*
   ** Nuxt.js modules
@@ -48,7 +47,17 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/proxy'
+    '@nuxtjs/proxy',
+    ['vue-currency-input/nuxt', {
+      globalOptions: {
+        currency: null,
+        distractionFree: true,
+        allowNegative: false,
+        valueAsInteger: true,
+        autoDecimalMode: true,
+        precision: 2,
+      },
+    }],
   ],
   /*
   ** Axios module configuration

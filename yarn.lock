@@ -8188,10 +8188,10 @@ vue-client-only@^2.0.0:
   resolved "https://registry.yarnpkg.com/vue-client-only/-/vue-client-only-2.0.0.tgz#ddad8d675ee02c761a14229f0e440e219de1da1c"
   integrity sha512-arhk1wtWAfLsJyxGMoEYhoBowM87/i6HLSG2LH/03Yog6i2d9JEN1peMP0Ceis+/n9DxdenGYZZTxbPPJyHciA==
 
-vue-currency-input@^1.18.1:
-  version "1.18.1"
-  resolved "https://registry.yarnpkg.com/vue-currency-input/-/vue-currency-input-1.18.1.tgz#d00d781fb0a6390ecaa1d448ace17547150e5163"
-  integrity sha512-rDja73fZpqgk6V2HDJV4WVo0+7RK6i1pqP+gPLwJecrQTD5/rsHILjhTgp3cwkBDAGrUR5737KeGukfE0pl6MQ==
+vue-currency-input@^1.18.2:
+  version "1.18.2"
+  resolved "https://registry.yarnpkg.com/vue-currency-input/-/vue-currency-input-1.18.2.tgz#4afd0685e399d6822be4a1560b48737eac92ae1a"
+  integrity sha512-USgRbJgNjm8M6qn84NXHXbe2ciKeMsToOrs+BMGdWC5Jnh5fOa+fXX6Ph2PDjL9HsnH7eOBzH0QvXqNXFlhvNw==
 
 vue-hot-reload-api@^2.3.0:
   version "2.3.4"

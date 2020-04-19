@@ -22,6 +22,7 @@
         label="Cena"
         placeholder="4050"
         v-model.lazy="form.price"
+        v-currency
         suffix="zł"
       />
       <v-text-field
@@ -97,24 +98,23 @@
 </template>
 
 <script>
+  import { CurrencyDirective, parseCurrency } from 'vue-currency-input'
+
   export default {
     layout: 'admin',
+    directives: { currency: CurrencyDirective },
     computed: {
       categories() {
         return this.$store.state.categories.categories
+      },
+      realPrice () {
+        return parseCurrency(this.form.price, { valueAsInteger: true })
       },
     },
     mounted() {
       this.$store.dispatch('categories/fetch')
     },
     data: () => ({
-      money: {
-        decimal: ',',
-        thousands: '.',
-        suffix: ' zł',
-        precision: 2,
-        masked: false,
-      },
       tempPrice: null,
       form: {
         name: '',
@@ -138,7 +138,7 @@
     }),
     methods: {
       addProduct() {
-        this.$store.dispatch('products/add', this.form)
+        this.$store.dispatch('products/add', Object.assign({}, this.form, { price: this.realPrice }))
       },
     }
   }
