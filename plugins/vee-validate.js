@@ -18,6 +18,14 @@ extend('max', {
   message: '{_field_} nie powinnoj być dłuższe niż {length} znaków.',
 })
 
+extend('max_price', {
+  params: ['max', 'price'],
+  validate: (_, { max, price }) => {
+    return parseInt(price) <= max
+  },
+  message: '{_field_} nie może być większa niż {max}.',
+})
+
 extend('email', {
   ...email,
   message: 'Email musi być poprawny',
@@ -26,7 +34,7 @@ extend('email', {
 extend('slug', value => {
   let valid = /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value)
 
-  if(valid) {
+  if (valid) {
     return true
   }
 

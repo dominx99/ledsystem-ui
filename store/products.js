@@ -48,17 +48,20 @@ export const actions = {
       commit('setLoading', 'addProduct')
 
       let data = new FormData()
-      params.images.forEach((image, i) => {
-        data.append(`images[${i}]`, image)
-      })
-      params.categories.forEach((category, i) => {
-        data.append(`categories[${i}]`, category)
-      })
-      data.append('name', params.name)
-      data.append('type', params.type)
-      data.append('base', params.base)
-      data.append('step', params.step)
-      data.append('price', params.price)
+
+      for (let itemKey in params) {
+        if (itemKey === 'categories') {
+          params.categories.forEach((category, i) => {
+            data.append(`categories[${i}]`, category)
+          })
+        } else if (itemKey === 'images') {
+          params.images.forEach((image, i) => {
+            data.append(`images[${i}]`, image)
+          })
+        } else {
+          data.append(itemKey, params[itemKey])
+        }
+      }
 
       await this.$axios.post('v1/products', data, {
         headers: {'Content-Type': 'multipart/form-data'}

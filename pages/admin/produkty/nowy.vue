@@ -37,7 +37,11 @@
               v-model="form.type"
             />
           </ValidationProvider>
-          <ValidationProvider v-slot="{ errors }" name="Cena" rules="required|slug|min:3">
+          <ValidationProvider
+            v-slot="{ errors }"
+            name="Cena"
+            :rules="`required|max_price:5000000,${realPrice}`"
+          >
             <v-text-field
               outlined
               color="primary"
