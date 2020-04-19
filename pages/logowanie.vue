@@ -32,7 +32,7 @@
     <div>
       <v-btn
         @click.stop="login()"
-        color="cyan darken-1"
+        color="primary"
         class="white--text"
         :loading="loading"
         large

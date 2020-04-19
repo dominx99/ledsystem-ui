@@ -5,7 +5,7 @@
       <v-btn
         outlined
         dark
-        color="cyan darken-1"
+        color="primary"
         to="/admin/produkty/nowy"
       >
         Nowy

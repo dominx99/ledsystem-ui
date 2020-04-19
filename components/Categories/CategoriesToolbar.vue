@@ -20,7 +20,7 @@
               v-for="(category, index) in categories"
               :key="index"
               class="mr-4 my-2 font-weight-bold"
-              color="cyan darken-1"
+              color="primary"
               dark
               outlined
               @click="moveToCategory(category)"
