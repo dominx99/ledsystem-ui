@@ -43,37 +43,6 @@ export const actions = {
       console.error("Failed to find product")
     }
   },
-  async add({ commit, dispatch }, params) {
-    try {
-      commit('setLoading', 'addProduct')
-
-      let data = new FormData()
-
-      for (let itemKey in params) {
-        if (itemKey === 'categories') {
-          params.categories.forEach((category, i) => {
-            data.append(`categories[${i}]`, category)
-          })
-        } else if (itemKey === 'images') {
-          params.images.forEach((image, i) => {
-            data.append(`images[${i}]`, image)
-          })
-        } else {
-          data.append(itemKey, params[itemKey])
-        }
-      }
-
-      await this.$axios.post('v1/products', data, {
-        headers: {'Content-Type': 'multipart/form-data'}
-      })
-
-      commit('removeLoading', 'addProduct')
-      this.$router.push('/admin/produkty')
-      setTimeout(() => dispatch('fetch'), 2500)
-    } catch(e) {
-      console.error('Failed to add product.')
-    }
-  },
 }
 
 export const mutations = {

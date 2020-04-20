@@ -16,7 +16,8 @@
     "@nuxtjs/vuetify": "^1.0.0",
     "nuxt": "^2.0.0",
     "vee-validate": "^3.2.5",
-    "vue-currency-input": "^1.18.2"
+    "vue-currency-input": "^1.18.2",
+    "vue-pusher": "^1.0.0"
   },
   "devDependencies": {
     "@mdi/font": "^5.0.45",

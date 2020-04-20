@@ -32,7 +32,8 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '~/plugins/vee-validate.js'
+    '~/plugins/vee-validate.js',
+    '~/plugins/vue-pusher.js',
   ],
   /*
   ** Nuxt.js dev-modules
@@ -82,7 +83,7 @@ export default {
         dark: {
           primary: colors.cyan.darken2,
           accent: colors.grey.darken3,
-          secondary: colors.amber.darken3,
+          secondary: colors.lightBlue.darken2,
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
@@ -93,7 +94,7 @@ export default {
         light: {
           primary: colors.blue.darken2,
           accent: colors.grey.darken3,
-          secondary: colors.amber.darken3,
+          secondary: colors.cyan.darken1,
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
@@ -116,5 +117,7 @@ export default {
   env: {
     baseUrl: process.env.BASE_URL,
     nodeEnv: process.env.NODE_ENV,
+    pusherApiKey: process.env.PUSHER_API_KEY,
+    pusherCluster: process.env.PUSHER_CLUSTER,
   }
 }

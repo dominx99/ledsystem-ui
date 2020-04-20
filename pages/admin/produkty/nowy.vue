@@ -1,169 +1,110 @@
 <template>
-  <v-card>
-    <v-card-title class="mb-2">Nowy produkt</v-card-title>
-    <v-card-text>
-      <ValidationObserver ref="observer" v-slot="{ validate, reset }">
-        <form>
-          <ValidationProvider v-slot="{ errors }" name="Nazwa" rules="required|min:3">
-            <v-text-field
-              outlined
-              :error-messages="errors"
-              color="primary"
-              label="Nazwa"
-              placeholder="Taśma led krótka"
-              v-model="form.name"
-              @input="handleName"
-              required
-            />
-          </ValidationProvider>
-          <ValidationProvider v-slot="{ errors }" name="Slug" rules="required|slug|min:3">
-            <v-text-field
-              outlined
-              :error-messages="errors"
-              color="primary"
-              label="Slug"
-              placeholder="tasma-led-krotka"
-              v-model="form.slug"
-              required
-            />
-          </ValidationProvider>
-          <ValidationProvider v-slot="{ errors }" name="Jednostka" rules="required">
-            <v-select
-              outlined
-              :error-messages="errors"
-              color="primary"
-              label="Jednostka"
-              :items="unitTypes"
-              v-model="form.type"
-            />
-          </ValidationProvider>
-          <ValidationProvider
-            v-slot="{ errors }"
-            name="Cena"
-            :rules="`required|max_price:5000000,${realPrice}`"
-          >
-            <v-text-field
-              outlined
-              color="primary"
-              label="Cena"
-              :error-messages="errors"
-              placeholder="50,45"
-              v-model="form.price"
-              v-currency
-              suffix="zł"
-              required
-            />
-          </ValidationProvider>
-          <ValidationProvider v-if="false" v-slot="{ errors }" name="Mnożnik">
-            <v-text-field
-              outlined
-              :error-messages="errors"
-              type="number"
-              color="primary"
-              label="Mnożnik"
-              placeholder="1"
-              v-model.number="form.base"
-              hint="Mnożnik: definiuje przez co będzie mnożona cena produktu."
-            />
-          </ValidationProvider>
-          <ValidationProvider v-slot="{ errors }" name="Co ile">
-            <v-text-field
-              outlined
-              :error-messages="errors"
-              type="number"
-              color="primary"
-              label="Co ile"
-              placeholder="1"
-              v-model="form.step"
-              hint="Co ile: definiuje co ile użytkownik będzie mógł dodawać proktów, np taśma co 3 metry"
-            />
-          </ValidationProvider>
-          <ValidationProvider v-slot="{ errors }" name="Zdjęcia" rules="required|length:1">
-            <v-file-input
-              :error-messages="errors"
-              v-model="form.images"
-              color="primary"
-              counter
-              label="Zdjęcia"
-              multiple
-              placeholder="Wybierz zdjęcia dla produktu"
-              prepend-icon="mdi-paperclip"
-              outlined
-              :show-size="1000"
-            >
-              <template v-slot:selection="{ index, text }">
-                <v-chip
-                  v-if="index < 2"
-                  color="primary"
-                  dark
-                  label
-                  small
-                >
-                  {{ text }}
-                </v-chip>
+  <v-stepper v-model="step">
+    <v-stepper-header>
+      <v-stepper-step :complete="step > 1" step="1">Produkt</v-stepper-step>
 
-                <span
-                  v-else-if="index === 2"
-                  class="overline grey--text text--darken-3 mx-2"
-                >
-                  +{{ form.images.length - 2 }} Plik(i)
-                </span>
-              </template>
-            </v-file-input>
-          </ValidationProvider>
-          <ValidationProvider v-slot="{ errors }" name="Kategorie" rules="required|length:1">
-            <v-select
-              :error-messages="errors"
-              outlined
-              multiple
-              item-text="name"
-              item-value="id"
-              color="primary"
-              label="Kategorie"
-              :items="categories"
-              v-model="form.categories"
-            />
-          </ValidationProvider>
-        </form>
-      </ValidationObserver>
-    </v-card-text>
-    <v-card-actions>
-      <v-btn
-        color="primary darken-1"
-        @click="addProduct()"
-      >
-        Dodaj
-      </v-btn>
-    </v-card-actions>
-  </v-card>
+      <v-divider></v-divider>
+
+      <v-stepper-step :complete="step > 2" step="2">Parametry</v-stepper-step>
+
+      <v-divider></v-divider>
+
+      <v-stepper-step step="3">Główny obrazek</v-stepper-step>
+    </v-stepper-header>
+
+    <v-stepper-items>
+      <v-stepper-content step="1">
+        <div>
+          <ProductStep ref="observer" :form="form" />
+
+          <v-btn
+            color="primary"
+            @click="addProduct()"
+          >
+            Zapisz
+          </v-btn>
+
+          <v-overlay
+            :value="addProductLoading"
+            opacity=".5"
+            absolute
+          >
+            <v-progress-circular indeterminate size="64"></v-progress-circular>
+          </v-overlay>
+        </div>
+      </v-stepper-content>
+
+      <v-stepper-content step="2">
+        <ParametersStep />
+
+        <v-layout>
+        <v-btn
+          color="primary"
+          @click="assignProductParameters()"
+        >
+          Zapisz
+        </v-btn>
+        <v-btn
+          dark
+          class="ml-auto"
+          color="secondary"
+          @click="addNewParameter"
+        >
+          <span>Dodaj Parametr</span>
+          <v-icon>mdi-plus</v-icon>
+        </v-btn>
+        </v-layout>
+      </v-stepper-content>
+
+      <v-stepper-content step="3">
+        <v-card
+          class="mb-12"
+          color="grey lighten-1"
+          height="200px"
+        ></v-card>
+
+        <v-btn
+          color="primary"
+        >
+          Zapisz
+        </v-btn>
+      </v-stepper-content>
+    </v-stepper-items>
+  </v-stepper>
 </template>
 
 <script>
-  import { CurrencyDirective, parseCurrency } from 'vue-currency-input'
-  import { ValidationObserver, ValidationProvider } from 'vee-validate'
+  import ProductStep from './../../../components/Admin/Products/Create/ProductStep.vue'
+  import ParametersStep from './../../../components/Admin/Products/Create/ParametersStep.vue'
 
   export default {
     layout: 'admin',
-    directives: {
-      currency: CurrencyDirective,
-    },
     components: {
-      ValidationObserver,
-      ValidationProvider,
-    },
-    computed: {
-      categories() {
-        return this.$store.state.categories.categories
-      },
-      realPrice () {
-        return parseCurrency(this.form.price, { valueAsInteger: true })
-      },
+      ProductStep,
+      ParametersStep,
     },
     mounted() {
       this.$store.dispatch('categories/fetch')
     },
+    computed: {
+      realPrice() {
+        return this.$parseCurrency(this.form.price)
+      },
+      product() {
+        return this.$store.state.admin.products.product
+      },
+      addProductLoading() {
+        return this.$store.state.admin.products.loading.addProduct
+      },
+      parameters() {
+        return this.$store.state.admin.parameters.newProduct.existingParameters
+      },
+      newParameters() {
+        return this.$store.state.admin.parameters.newProduct.newParameters
+      },
+    },
     data: () => ({
-      tempPrice: null,
+      step: 1,
       form: {
         name: '',
         slug: '',
@@ -174,39 +115,50 @@
         images: [],
         categories: [],
       },
-      unitTypes: [
-        {
-          text: 'Sztuki',
-          value: 'pieces',
-        },
-        {
-          text: 'Metry',
-          value: 'meters',
-        }
-      ],
     }),
     methods: {
-      slugify(text) {
-        return text
-          .toString()
-          .toLowerCase()
-          .normalize('NFD')
-          .trim()
-          .replace(/\s+/g, '-')
-          .replace(/[^\w\-]+/g, '')
-          .replace(/\-\-+/g, '-')
+      addNewParameter() {
+        this.$store.commit('admin/parameters/addNewParameter', { name: '', values: [] })
       },
-      handleName() {
-        this.form.slug = this.slugify(this.form.name)
+      async assignProductParameters() {
+        let parameters = this.parameters.filter(p => p.parameter_value_ids.length > 0)
+        let newParameters = this.newParameters.filter(p => p.name !== '' && p.values.length > 0)
+
+        this.$store.dispatch('admin/products/assignParameters', {
+          productId: this.product.id,
+          parameters: parameters,
+          newParameters: newParameters,
+        })
       },
       async addProduct() {
-        let valid = await this.$refs.observer.validate()
+        let valid = await this.$refs.observer.$children[0].validate()
 
         if (! valid) {
           return
         }
 
-        this.$store.dispatch('products/add', Object.assign({}, this.form, { price: this.realPrice }))
+        console.log('form is valid')
+
+        var channel = this.$pusher.subscribe('products');
+
+        channel.bind('product.created', ({ productId }) => {
+          console.log('bind', productId)
+
+          this.$store.commit('admin/products/removeLoading', 'addProduct')
+          this.$store.dispatch('admin/products/findById', productId)
+          this.nextStep()
+
+          this.$pusher.unbind('product.created')
+        });
+
+        console.log('add product')
+
+        await this.$store.dispatch('admin/products/add', Object.assign({}, this.form, { price: this.realPrice }))
+      },
+      nextStep() {
+        console.log('next step')
+
+        this.step++
       },
     }
   }
