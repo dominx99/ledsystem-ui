@@ -177,7 +177,7 @@
         this.$store.commit('products/setActiveImage', image)
       },
       imageUrl(path) {
-        return process.env.baseUrl + '/storage/' + path
+        return process.env.storageUrl + path
       },
       addToCart() {
         this.$store.dispatch('cart/add', { product: this.product, count: this.quantity })

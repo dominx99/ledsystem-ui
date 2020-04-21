@@ -119,5 +119,6 @@ export default {
     nodeEnv: process.env.NODE_ENV,
     pusherApiKey: process.env.PUSHER_API_KEY,
     pusherCluster: process.env.PUSHER_CLUSTER,
+    storageUrl: process.env.STORAGE_URL,
   }
 }

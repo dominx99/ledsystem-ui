@@ -85,7 +85,7 @@
     },
     methods: {
       imageUrl(path) {
-        return process.env.baseUrl + '/storage/' + path
+        return process.env.storageUrl + path
       },
     }
   }

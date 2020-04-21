@@ -110,7 +110,7 @@
         sum: 'cart/sum'
       }),
       imageUrl(item) {
-        return process.env.baseUrl + '/storage/' + item.product.images[0].micro.path
+        return process.env.storageUrl + item.product.images[0].micro.path
       },
       clear() {
         this.$store.dispatch('cart/clear')
