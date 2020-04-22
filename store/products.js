@@ -9,17 +9,6 @@ export const state = () => ({
 })
 
 export const actions = {
-  async fetch({ commit }) {
-    try {
-      commit('setLoadingProducts')
-
-      const res = await this.$axios.get(`v1/products`)
-
-      commit('setProducts', res.data)
-    } catch (e) {
-      console.error("Failed to load products.")
-    }
-  },
   async fetchByCategorySlug({ commit }, slug) {
     try {
       commit('setLoadingProducts')

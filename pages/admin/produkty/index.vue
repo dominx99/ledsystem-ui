@@ -52,14 +52,14 @@
       Money,
     },
     mounted() {
-      this.$store.dispatch('products/fetch')
+      this.$store.dispatch('admin/products/fetch')
     },
     computed: {
       products() {
-        return this.$store.state.products.products
+        return this.$store.state.admin.products.products
       },
       loading() {
-        return this.$store.state.products.loading.products
+        return this.$store.state.admin.products.loading.products
       },
     },
     data () {

@@ -57,16 +57,13 @@
       </v-stepper-content>
 
       <v-stepper-content step="3">
-        <v-card
-          class="mb-12"
-          color="grey lighten-1"
-          height="200px"
-        ></v-card>
+        <SelectMainImageStep class="mb-5" />
 
         <v-btn
           color="primary"
+          @click="saveMainImage"
         >
-          Zapisz
+          Wybierz i zapisz
         </v-btn>
       </v-stepper-content>
     </v-stepper-items>
@@ -76,15 +73,19 @@
 <script>
   import ProductStep from './../../../components/Admin/Products/Create/ProductStep.vue'
   import ParametersStep from './../../../components/Admin/Products/Create/ParametersStep.vue'
+  import SelectMainImageStep from './../../../components/Admin/Products/Create/SelectMainImageStep.vue'
 
   export default {
     layout: 'admin',
     components: {
       ProductStep,
       ParametersStep,
+      SelectMainImageStep,
     },
     mounted() {
       this.$store.dispatch('categories/fetch')
+
+      this.channel = this.$pusher.subscribe('products');
     },
     computed: {
       realPrice() {
@@ -102,9 +103,13 @@
       newParameters() {
         return this.$store.state.admin.parameters.newProduct.newParameters
       },
+      activeImage() {
+        return this.$store.state.admin.products.activeImage
+      },
     },
     data: () => ({
       step: 1,
+      channel: null,
       form: {
         name: '',
         slug: '',
@@ -117,6 +122,21 @@
       },
     }),
     methods: {
+      saveMainImage() {
+        let channel = this.$pusher.subscribe(`product.${this.product.id}`)
+
+        channel.bind('image.updated', () => {
+          channel.unbind('image.updated')
+
+          this.$router.push({ name: 'admin-produkty' })
+          this.$store.dispatch('admin/products/fetch')
+        })
+
+        this.$store.dispatch('admin/products/setMainImage', {
+          productId: this.product.id,
+          imageId: this.activeImage.id
+        })
+      },
       addNewParameter() {
         this.$store.commit('admin/parameters/addNewParameter', { name: '', values: [] })
       },
@@ -129,6 +149,8 @@
           parameters: parameters,
           newParameters: newParameters,
         })
+
+        this.openSelectImageStep()
       },
       async addProduct() {
         let valid = await this.$refs.observer.$children[0].validate()
@@ -139,26 +161,25 @@
 
         console.log('form is valid')
 
-        var channel = this.$pusher.subscribe('products');
-
-        channel.bind('product.created', ({ productId }) => {
+        this.channel.bind('product.created', ({ productId }) => {
           console.log('bind', productId)
 
           this.$store.commit('admin/products/removeLoading', 'addProduct')
           this.$store.dispatch('admin/products/findById', productId)
-          this.nextStep()
+          this.openParametersStep()
 
-          this.$pusher.unbind('product.created')
-        });
+          this.channel.unbind('product.created')
+        })
 
         console.log('add product')
 
         await this.$store.dispatch('admin/products/add', Object.assign({}, this.form, { price: this.realPrice }))
       },
-      nextStep() {
-        console.log('next step')
-
-        this.step++
+      openParametersStep() {
+        this.step = 2
+      },
+      openSelectImageStep() {
+        this.step = 3
       },
     }
   }

@@ -35,7 +35,7 @@
 
           <v-btn
             icon
-            class="hidden-md-and-down"
+            class="hidden-sm-and-down"
             to="/logowanie"
           >
             <v-icon>mdi-account</v-icon>

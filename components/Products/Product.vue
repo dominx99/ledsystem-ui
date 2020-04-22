@@ -55,11 +55,13 @@
         })
       },
       imageUrl() {
-        if (! this.product.images[0]) {
-          return 'https://images.obi.pl/product/PL/1500x1500/603449_1.jpg'
+        if (! this.product.image) {
+          return process.env.storageUrl + this.product.images[0].thumbnail.path
         }
 
-        return process.env.storageUrl +  this.product.images[0].thumbnail.path
+        console.log(this.product.image)
+
+        return process.env.storageUrl + this.product.image.thumbnail.path
       },
       addToCart () {
         this.loading = true
