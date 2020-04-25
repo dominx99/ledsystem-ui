@@ -1,6 +1,8 @@
 export const state = () => ({
+  parameters: [],
   productCategoriesParameters: [],
   loading: {
+    parameters: false,
     productCategoriesParameters: false,
   },
   newProduct: {
@@ -10,6 +12,18 @@ export const state = () => ({
 })
 
 export const actions = {
+  async fetch({ commit }, categoryIds) {
+    commit('setLoading', 'parameters')
+
+    try {
+      const res = await this.$axios.get('v1/parameters')
+
+      commit('setParameters', res.data)
+      commit('removeLoading', 'parameters')
+    } catch (e) {
+      console.error('Failed to load parameters')
+    }
+  },
   async fetchByCategoryIds({ commit }, categoryIds) {
     commit('setLoading', 'productCategoriesParameters')
 
@@ -25,10 +39,13 @@ export const actions = {
     } catch (e) {
       console.error('Failed to load product categories\' parameters')
     }
-  }
+  },
 }
 
 export const mutations = {
+  setParameters(state, parameters) {
+    state.parameters = parameters
+  },
   setProductCategoriesParameters(state, parameters) {
     state.productCategoriesParameters = parameters
   },

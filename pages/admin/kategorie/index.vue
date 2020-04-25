@@ -23,6 +23,9 @@
     },
     mounted() {
       this.$store.dispatch('categories/fetchRecursive')
+      if (this.$store.state.admin.parameters.parameters.length <= 0) {
+        this.$store.dispatch('admin/parameters/fetch')
+      }
     },
   }
 </script>

@@ -32,7 +32,7 @@
         <v-img
           width="100"
           :aspect-ratio="16/9"
-          :src="imageUrl(item.images[0].micro.path)"
+          :src="imageUrl(item)"
         />
       </template>
 
@@ -84,8 +84,12 @@
       }
     },
     methods: {
-      imageUrl(path) {
-        return process.env.storageUrl + path
+      imageUrl(product) {
+        if (! product.image) {
+          return process.env.storageUrl + product.images[0].thumbnail.path
+        }
+
+        return process.env.storageUrl + product.image.thumbnail.path
       },
     }
   }

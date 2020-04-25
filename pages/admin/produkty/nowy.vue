@@ -57,6 +57,14 @@
       </v-stepper-content>
 
       <v-stepper-content step="3">
+        <v-overlay
+          :value="loading.setImage"
+          opacity=".5"
+          absolute
+        >
+          <v-progress-circular indeterminate size="64"></v-progress-circular>
+        </v-overlay>
+
         <SelectMainImageStep class="mb-5" />
 
         <v-btn
@@ -110,6 +118,9 @@
     data: () => ({
       step: 1,
       channel: null,
+      loading: {
+        setImage: false,
+      },
       form: {
         name: '',
         slug: '',
@@ -126,11 +137,15 @@
         let channel = this.$pusher.subscribe(`product.${this.product.id}`)
 
         channel.bind('image.updated', () => {
+          this.loading.setImage = false
+
           channel.unbind('image.updated')
 
           this.$router.push({ name: 'admin-produkty' })
           this.$store.dispatch('admin/products/fetch')
         })
+
+        this.loading.setImage = true
 
         this.$store.dispatch('admin/products/setMainImage', {
           productId: this.product.id,
