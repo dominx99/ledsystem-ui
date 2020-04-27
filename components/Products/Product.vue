@@ -59,8 +59,6 @@
           return process.env.storageUrl + this.product.images[0].thumbnail.path
         }
 
-        console.log(this.product.image)
-
         return process.env.storageUrl + this.product.image.thumbnail.path
       },
       addToCart () {

@@ -174,19 +174,13 @@
           return
         }
 
-        console.log('form is valid')
-
         this.channel.bind('product.created', ({ productId }) => {
-          console.log('bind', productId)
-
           this.$store.commit('admin/products/removeLoading', 'addProduct')
           this.$store.dispatch('admin/products/findById', productId)
           this.openParametersStep()
 
           this.channel.unbind('product.created')
         })
-
-        console.log('add product')
 
         await this.$store.dispatch('admin/products/add', Object.assign({}, this.form, { price: this.realPrice }))
       },

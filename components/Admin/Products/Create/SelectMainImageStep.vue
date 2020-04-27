@@ -50,8 +50,6 @@ export default {
   },
   watch: {
     async productLoading(value) {
-      console.log("product status changed", value)
-
       if (value === true) {
         return
       }
