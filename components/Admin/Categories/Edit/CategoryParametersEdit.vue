@@ -7,6 +7,7 @@
       v-model="parameterIds"
       multiple
       chips
+      placeholder="Barwa, Moc, Akcesoria"
     />
 
     <v-btn
@@ -32,14 +33,16 @@
     }),
     mounted() {
       if (Object.keys(this.category).length <= 0) {
+        console.log("no category? weird", this.category)
         return
       }
+
+      console.log("mounted", this.category)
 
       this.parameterIds = this.category.parameters.map(parameter => parameter.id)
     },
     methods: {
       updateCategoryParameters() {
-        this.$store.commit('admin/categories/setLoading', 'updateParameters')
         this.subscribeCategory()
         this.bindParametersUpdated()
 

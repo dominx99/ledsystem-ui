@@ -3,9 +3,12 @@ export const state = () => ({
   product: {},
   activeImage: {},
   loading: {
-  products: true,
+    products: true,
     product: false,
     addProduct: false,
+  },
+  errors: {
+    addProduct: {}
   },
 })
 
@@ -36,6 +39,7 @@ export const actions = {
   async add({ commit, dispatch }, params) {
     try {
       commit('setLoading', 'addProduct')
+      commit('clearErrors', 'addProduct')
 
       let data = new FormData()
 
@@ -58,6 +62,16 @@ export const actions = {
       })
     } catch(e) {
       console.error('Failed to add product.')
+
+      if (e.response.status === 422) {
+        commit('setErrors', {
+          name: 'addProduct',
+          errors: e.response.data.errors
+        })
+        commit('removeLoading', 'addProduct')
+
+        return
+      }
     }
   },
   assignParameters({ commit }, { productId, parameters, newParameters }) {
@@ -99,5 +113,11 @@ export const mutations = {
   },
   removeLoading(state, name) {
     state.loading[name] = false
+  },
+  setErrors(state, { name, errors }) {
+    state.errors[name] = errors
+  },
+  clearErrors(state, name) {
+    state.errors[name] = {}
   },
 }

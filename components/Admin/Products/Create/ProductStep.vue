@@ -16,7 +16,7 @@
       <ValidationProvider v-slot="{ errors }" name="Slug" rules="required|slug|min:3">
         <v-text-field
           outlined
-          :error-messages="errors"
+          :error-messages="getErrors(errors, backendErrors.slug)"
           color="primary"
           label="Slug"
           placeholder="tasma-led-krotka"
@@ -128,6 +128,7 @@
 <script>
   import { CurrencyDirective } from 'vue-currency-input'
   import { ValidationObserver, ValidationProvider } from 'vee-validate'
+  import { mapState } from 'vuex'
 
   export default {
     props: ['form'],
@@ -138,14 +139,13 @@
       ValidationObserver,
       ValidationProvider,
     },
-    computed: {
-      categories() {
-        return this.$store.state.categories.categories
-      },
+    computed: mapState({
+      backendErrors: state => state.admin.products.errors.addProduct,
+      categories: state => state.categories.categories,
       realPrice () {
         return this.$parseCurrency(this.form.price)
       },
-    },
+    }),
     data: () => ({
       unitTypes: [
         {
@@ -171,6 +171,13 @@
       },
       handleName() {
         this.form.slug = this.slugify(this.form.name)
+      },
+      getErrors(errors, backendErrors) {
+        if (! Array.isArray(backendErrors)) {
+          return errors
+        }
+
+        return [...errors, ...backendErrors]
       },
     },
   }

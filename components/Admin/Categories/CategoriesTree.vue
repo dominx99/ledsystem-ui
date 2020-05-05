@@ -10,6 +10,17 @@
     </v-card>
 
     <v-card v-else>
+      <v-card-title>
+        <span>Kategorie</span>
+        <v-btn
+          outlined
+          color="primary"
+          class="ml-auto"
+          to="/admin/kategorie/nowa"
+        >
+          Nowa
+        </v-btn>
+      </v-card-title>
       <v-treeview
         :active.sync="active"
         :items="categories"
