@@ -24,7 +24,7 @@
           to="/admin/produkty"
         >
           <v-list-item-action>
-            <v-icon>mdi-settings</v-icon>
+            <v-icon>mdi-flask</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>Produkty</v-list-item-title>
@@ -35,7 +35,7 @@
           to="/admin/kategorie"
         >
           <v-list-item-action>
-            <v-icon>mdi-settings</v-icon>
+            <v-icon>mdi-shape-plus</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>Kategorie</v-list-item-title>

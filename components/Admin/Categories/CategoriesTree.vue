@@ -29,7 +29,7 @@
         transition
       >
         <template v-slot:prepend="{ item, active }">
-          <v-icon>mdi-account</v-icon>
+          <v-icon>mdi-shape-plus</v-icon>
         </template>
       </v-treeview>
     </v-card>

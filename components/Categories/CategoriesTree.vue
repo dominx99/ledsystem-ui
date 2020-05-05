@@ -28,6 +28,9 @@
             <v-list-item-icon v-if="item.icon">
               <v-icon v-text="item.icon"></v-icon>
             </v-list-item-icon>
+            <v-list-item-icon v-else>
+              <v-icon>mdi-shape-plus</v-icon>
+            </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title v-text="item.name"></v-list-item-title>
             </v-list-item-content>
