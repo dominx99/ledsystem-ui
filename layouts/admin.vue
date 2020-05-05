@@ -3,7 +3,7 @@
     <v-navigation-drawer
       v-model="drawer"
       :mobile-break-point="600"
-      :mini-variant.sync="$vuetify.breakpoint.mdAndDown && $vuetify.breakpoint.smAndUp"
+      :mini-variant="$vuetify.breakpoint.mdAndDown && $vuetify.breakpoint.smAndUp"
       :style="{background: $vuetify.theme.themes[theme].drawer}"
       app
     >
